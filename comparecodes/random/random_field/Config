@@ -1,0 +1,20 @@
+#		Configuration file for the Random Field Generator
+
+REQUIRES physics/Hydro
+REQUIRES physics/Eos
+REQUIRES Grid/GridMain/paramesh
+
+PARAMETER sim_xmin	   REAL    0.0
+PARAMETER sim_xmax         REAL	   1.0
+PARAMETER sim_ymin         REAL	   0.0
+PARAMETER sim_ymax         REAL    1.0
+PARAMETER sim_zmin         REAL    0.0
+PARAMETER sim_zmax	   REAL	   1.0
+
+PARAMETER high_cut_index   REAL	   2.
+PARAMETER low_cut_index	   REAL	   2.
+PARAMETER psd_index	   REAL	   2.5
+PARAMETER high_cut_k	   REAL	   16.
+PARAMETER low_cut_k	   REAL	   0.5
+PARAMETER psd_seed	   INTEGER 12345
+PARAMETER sim_bcentral	   REAL	   1.0

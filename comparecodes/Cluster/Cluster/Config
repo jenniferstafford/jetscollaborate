@@ -1,0 +1,53 @@
+REQUIRES Driver
+REQUIRES Driver/DriverMain/Unsplit
+REQUIRES Grid
+REQUIRES physics/Eos
+REQUIRES physics/Eos/EosMain/Gamma
+REQUESTS physics/Gravity
+# REQUESTS physics/Gravity/GravityMain/Poisson/Multigrid
+REQUESTS physics/Gravity/GravityMain/PointMass
+REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
+REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
+REQUIRES physics/sourceTerms/Stir/StirMain
+
+# REQUIRES Grid/GridSolvers/Multigrid/PfftTopLevelSolve  # this should work only for periodic BCs
+# REQUIRES Grid/GridSolvers/Multigrid/
+REQUESTS IO
+
+REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
+# -----------------  For Resistive MHD setup -------------------#
+REQUIRES physics/materialProperties
+REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
+
+# Need this to use Diffuse_computeDt
+REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
+#------------------  End of Resistive MHD setup ----------------#
+
+# REQUIRES Particles/ParticlesMain/active
+# REQUIRES Particles/ParticlesMain/active/Leapfrog
+# REQUESTS Particles/ParticlesMapping/meshWeighting/CIC
+# REQUESTS Particles/ParticlesMapping/meshWeighting/MapToMesh
+# REQUESTS IO/IOParticles
+# PARTICLETYPE active INITMETHOD custom MAPMETHOD weighted
+
+D   Bfield0            initial (uniform) magnetic field
+D   SpitzerFraction    fraction of Spitzer conductivity along a field line
+D   saturated          saturated conduction
+
+PARAMETER Bfield0          REAL     1.0e-20
+PARAMETER SpitzerFraction  REAL  1.0e0
+PARAMETER isotropic        BOOLEAN  FALSE
+PARAMETER saturated        BOOLEAN FALSE
+PARAMETER T_in             REAL  2.0e7
+PARAMETER T_out            REAL  6.0e7
+PARAMETER rho_in           REAL  1.67e-26
+PARAMETER M0               REAL  3.8e14
+PARAMETER rs               REAL  390.0e0
+PARAMETER rc               REAL   20.0e0
+# PARAMETER Mvir             REAL  5.0e14
+# PARAMETER cool_fctn_file   STRING   "m-05.cie"
+PARAMETER useCool          BOOLEAN  TRUE    
+
+VARIABLE dens TYPE: PER_VOLUME
+VARIABLE cool
+

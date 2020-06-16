@@ -1,0 +1,12 @@
+step fxn temp
+mag in x
+unform press
+dens step fxn inverse prop to temp
+1d
+
+1core 10 min
+general queue
+
+time
+
+conduction coeffs terrestrial/cluster conditions

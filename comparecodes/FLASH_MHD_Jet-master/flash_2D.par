@@ -1,0 +1,90 @@
+#	Runtime parameters for the Emery wind tunnel + step problem.
+
+#	Parameters for initial model
+
+#	Ambient pressure and density and inflow velocity.
+
+sim_pAmbient	= 1.38065E-13	# erg/cm3 for 100 K gas
+sim_rhoAmbient	= 1.67E-23		# g/cm3 = 10 particles/cm3
+sim_windVel     = 0.0
+sim_gammaAmbient = 1.6666
+
+#	Jet properties
+sim_pJet		= 1.38065E-13
+sim_rhoJet		= 1.67E-24
+sim_velJet		= 3.0E6			# 1E-4 c
+sim_gammaJet	= 1.6666
+sim_bphiJet		= 0.0
+
+#	Nozzle Geometry
+nozzleRadius = 1.0E5
+nozzleLength = 2.0E5
+nozzlePosX = 0.0
+nozzlePosY = 0.0
+nozzlePosZ = 0.0
+nozzleVecX	= 0.0
+nozzleVecY	= 1.0
+nozzleVecZ	= 0.0
+
+bfeather_inner = 0.000
+bfeather_outer = 3.0E4
+
+smlrho  = 1E-30
+smallp  = 1E-30
+
+
+#	Computational volume parameters
+
+#		Grid geometry
+
+geometry = "cartesian"
+
+#		Size of computational volume
+
+Nblockx		= 2
+Nblocky		= 4
+Nblockz		= 1
+xmin		= -1.0E7
+xmax		= 1.0E7
+ymin		= -2.0E7
+ymax		= 2.0E7
+
+#		Boundary conditions
+
+xl_boundary_type = "outflow"
+xr_boundary_type = "outflow"
+
+yl_boundary_type = "outflow"
+yr_boundary_type = "outflow"
+
+
+#	Simulation (grid, time, I/O) parameters
+
+cfl		= 0.2
+lrefine_max     = 6
+refine_var_1 = "dens"
+refine_var_2 = "pres"
+basenm          = "MHD_Jet_2D_"
+restart         = .false.
+#checkpointFileNumber = 10
+checkpointFileIntervalTime          = 1E-1
+nend            = 100000
+tmax            = 1E10
+eintSwitch     = 1.e-4
+ 
+## -------------------------------------------------------------##
+##  SWITCHES SPECIFIC TO THE UNSPLIT HYDRO SOLVER               ##
+#	I. INTERPOLATION SCHEME:
+order		= 2      # Interpolation order (First/Second order)
+slopeLimiter    = "mc"   # Slope limiters (minmod, mc, vanLeer, hybrid, limited)
+LimitedSlopeBeta= 1.     # Slope parameter for the "limited" slope by Toro
+charLimiting	= .true. # Characteristic limiting vs. Primitive limiting
+
+
+#	II. RIEMANN SOLVERS:
+RiemannSolver	= "HLLC"       # LLF, HLL, HLLC, hybrid, Marquina, Roe
+
+
+#	III. STRONG SHOCK HANDELING SCHEME:
+shockDetect	= .true.     # Shock Detect for numerical stability
+## -------------------------------------------------------------##

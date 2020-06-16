@@ -1,0 +1,173 @@
+#	Parameters for initial model
+#	Ambient pressure and density and inflow velocity.
+
+sim_pAmbient	= 4.0E-10		# erg/cm3
+sim_rhoAmbient	= 8.3E-26		# g/cm3 = N particles/cm3 * 1.67E-24
+sim_windVel     = 0.0
+sim_gammaAmbient = 1.6666
+sim_bzAmbient	= 0.0 #1.8623E-6
+sim_densityProfile = "betacore"
+sim_densityBeta = 0.6
+sim_rCore		= 6.2E22
+
+useGravity = .true.
+
+#	Jet properties
+sim_powerJet	= 1.0E45
+sim_velJet		= 3.0E9			# 3.0E9 = 0.1 c
+sim_machJet		= 20.0
+sim_initMachJet	= 5.0
+sim_outflowRatio= 0.01
+sim_gammaJet	= 1.6666
+sim_betaJet		= 100.0
+sim_helicityJet = 1.0
+sim_timeMHDon	= 1.0E-11
+sim_tOn			= 0.0
+sim_duration	= 3.0E14
+
+#	Nozzle Geometry
+nozzleRadius = 7.5E20	# 3.1E21 cm ~ 1 kpc
+nozzleHalfL  = 3.75E20
+nozzlePosX   = 0.0
+nozzlePosY   = 0.0
+nozzlePosZ   = 0.0
+nozzleVecX	 = 0.0
+nozzleVecY	 = 0.0
+nozzleVecZ	 = 1.0
+coneVecX	 = 0.0
+coneVecY	 = 0.0
+coneVecZ	 = 1.0
+
+zTorInj		 = 1.5E21
+rFeatherIn	 = 3.75E20
+rFeatherOut  = 1.875E20
+zFeather	 = 7.5E20
+
+initGeometry = "spherical"
+
+#	Nozzle motion
+nozzlePrecession = 40
+nozzleNutation   = 80
+nozzlePrecAngle  = 0.2
+nozzleLinVelX = 0.0
+nozzleLinVelY = 0.0
+nozzleLinVelZ = 0.0
+
+#	Refinement Critiria
+derefine_z1	 = 8.0
+derefine_z2	 = 24.0
+refine_jetR  = 0.1
+derefine_jetR= 0.01
+
+randomSeed = 6511
+
+smlrho  = 1E-30
+smallp  = 1E-14
+smalle  = 1E13
+smallx	= 1E-99
+dtinit  = 1E7
+dtmin	= 1E5
+dtmax	= 1E12
+#gr_sanitizeDataMode = 3
+gr_sanitizeVerbosity = 4
+eintSwitch			 = 1.e-4
+energyfix			 = .true.
+
+
+#	Computational volume parameters
+
+#		Grid geometry
+
+geometry = "cartesian"
+
+
+#	Particles parameters
+useParticles	= .true.
+sim_ptInitNum	= 10
+sim_ptAddPeriod = 1E9
+sim_ptAddArea	= 1E47
+sim_ptSmljet = 1E-4
+pt_maxPerProc	= 10000
+
+
+#		Size of computational volume
+
+Nblockx		= 8
+Nblocky		= 8
+Nblockz		= 16
+xmin		= -7.72E23		# 3.1E21 cm ~ 1 kpc
+xmax		=  7.72E23
+ymin		= -7.72E23
+ymax		=  7.72E23
+zmin		= -1.544E24
+zmax		=  1.544E24
+
+#		Boundary conditions
+
+xl_boundary_type = "hydrostatic-f2+nvdiode"
+xr_boundary_type = "hydrostatic-f2+nvdiode"
+
+yl_boundary_type = "hydrostatic-f2+nvdiode"
+yr_boundary_type = "hydrostatic-f2+nvdiode"
+
+zl_boundary_type = "hydrostatic-f2+nvdiode"
+zr_boundary_type = "hydrostatic-f2+nvdiode"
+
+
+#	Simulation (grid, time, I/O) parameters
+cfl				= 0.2
+
+tmax            = 1.0E14
+nend            = 20000
+
+lrefine_max			= 9
+lrefine_0			= 8
+refine_var_1		= "pres"
+refine_cutoff_1		= 0.9
+derefine_cutoff_1	= 0.7
+#refine_var_3		= "magp"
+#refine_cutoff_3		= 0.9
+#derefine_cutoff_3	= 0.7
+basenm				= "MHD_Jet_"
+
+restart						= .false.
+checkpointFileIntervalTime  = 5.0E12
+checkpointFileNumber        = 0
+
+plotFileIntervalTime		= 1.0E12
+particleFileIntervalTime	= 1.0E12
+plotFileNumber              = 0
+particleFileNumber			= 0
+
+plot_var_1 = "dens"
+plot_var_2 = "pres"
+plot_var_3 = "temp"
+plot_var_4 = "jet "
+plot_var_5 = "velx"
+plot_var_6 = "vely"
+plot_var_7 = "velz"
+plot_var_8 = "magx"
+plot_var_9 = "magy"
+plot_var_10 = "magz"
+plot_var_11 = "magp"
+plot_var_12 = "eint"
+plot_var_13 = "shok"
+
+
+## -------------------------------------------------------------##
+##  SWITCHES SPECIFIC TO THE UNSPLIT HYDRO SOLVER               ##
+#	I. INTERPOLATION SCHEME:
+order		= 3      # Interpolation order (First/Second order)
+slopeLimiter    = "mc"   # Slope limiters (minmod, mc, vanLeer, hybrid, limited)
+LimitedSlopeBeta= 1.     # Slope parameter for the "limited" slope by Toro
+charLimiting	= .true. # Characteristic limiting vs. Primitive limiting
+
+
+#	II. RIEMANN SOLVERS:
+RiemannSolver	= "Hybrid"       # LLF, HLL, HLLC, hybrid, Marquina, Roe
+
+
+#	III. STRONG SHOCK HANDELING SCHEME:
+shockDetect	= .true.     # Shock Detect for numerical stability
+## -------------------------------------------------------------##
+ForceHydroLimit = .false. # Force pure hydro mode

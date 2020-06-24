@@ -57,7 +57,6 @@ subroutine Simulation_init()
   logical :: resetOutputTime
   !cluster
   integer, intent(in) :: myPE
-  integer :: i, ii
   real :: tmp
   !random
   real :: rn1, rn2, bp, seedin, delr, del, rad, norm

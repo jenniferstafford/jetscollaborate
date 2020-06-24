@@ -221,6 +221,30 @@ subroutine Simulation_init()
      ! Use the jet on time for initialization
      call sim_jetNozzleUpdate(nozzle, sim(nozzle)%tOn, dr_dt)
      call RuntimeParameters_get('randomSeed', sim(nozzle)%randSeed(1))
+     
+     !jet
+     
+     if (sim(nozzle)%zTorInj < sim(nozzle)%length+1.5*sim(nozzle)%zFeather .and.&
+        sim_meshMe==MASTER_PE) then
+        print*, '!!!!!!!!'
+        print*, 'Warning! zTorInj is too small that it overlaps with the nozzle.'
+        print*, 'Toroidal field will be smaller than it should be.'
+        print*, '!!!!!!!!'
+     endif
+  
+
+    if (sim_meshMe==MASTER_PE) then
+        write(*,'(a, 2es11.3, f7.2)') '(p, rho, M)=', &
+       sim(nozzle)%pressure, sim(nozzle)%density, &
+       sim(nozzle)%velocity/sqrt(sim(nozzle)%gamma*sim(nozzle)%pressure/sim(nozzle)%density)
+
+      !write(*,'(a, 2es11.3)') '(bz, bphi)=', sim(nozzle)%bz, sim(nozzle)%bphi
+      write(*,'(a, es11.3)') ' rFeatherOut:' , sim(nozzle)%rFeatherOut
+      write(*,'(a, es11.3)') ' rFeatherMix:' , sim(nozzle)%rFeatherMix
+      write(*,'(a, es11.3)') ' zFeatherMix:' , sim(nozzle)%zFeatherMix
+      write(*,'(a, es11.3)') ' sim_rCut:' , sim_rCut
+    endif
+ endif
 
      !from cluster
      
@@ -447,30 +471,6 @@ subroutine Simulation_init()
   end if
 
 
-
-  
-!jet
-     
-     if (sim(nozzle)%zTorInj < sim(nozzle)%length+1.5*sim(nozzle)%zFeather .and.&
-        sim_meshMe==MASTER_PE) then
-        print*, '!!!!!!!!'
-        print*, 'Warning! zTorInj is too small that it overlaps with the nozzle.'
-        print*, 'Toroidal field will be smaller than it should be.'
-        print*, '!!!!!!!!'
-     endif
-  
-
-    if (sim_meshMe==MASTER_PE) then
-        write(*,'(a, 2es11.3, f7.2)') '(p, rho, M)=', &
-       sim(nozzle)%pressure, sim(nozzle)%density, &
-       sim(nozzle)%velocity/sqrt(sim(nozzle)%gamma*sim(nozzle)%pressure/sim(nozzle)%density)
-
-      !write(*,'(a, 2es11.3)') '(bz, bphi)=', sim(nozzle)%bz, sim(nozzle)%bphi
-      write(*,'(a, es11.3)') ' rFeatherOut:' , sim(nozzle)%rFeatherOut
-      write(*,'(a, es11.3)') ' rFeatherMix:' , sim(nozzle)%rFeatherMix
-      write(*,'(a, es11.3)') ' zFeatherMix:' , sim(nozzle)%zFeatherMix
-      write(*,'(a, es11.3)') ' sim_rCut:' , sim_rCut
-    endif
 
   !from cluster
   

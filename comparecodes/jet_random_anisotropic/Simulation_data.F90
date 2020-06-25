@@ -86,7 +86,7 @@ module Simulation_data
     
   !! *** Variables pertaining to this Simulation *** !!
 
-  real, save    :: sim_gamma, sim_zinit, sim_hubble
+  real, save    :: sim_zinit, sim_hubble
   real, save    :: sim_xMin, sim_xMax, sim_yMin, sim_yMax, sim_zMin, sim_zMax, sim_eos_singleSpeciesA
   real, save    :: sim_Bfield0, T_in, T_out, rho_in 
   real, save    :: kb, mp, newton, Msun, Mpc, kpc, km
@@ -114,7 +114,6 @@ module Simulation_data
   real, save, dimension(NXAVEC) :: sim_ax_coords
   real, save, dimension(NYAVEC) :: sim_ay_coords
   real, save, dimension(NZAVEC) :: sim_az_coords
-  real, save :: sim_xmin, sim_xmax, sim_ymin, sim_ymax, sim_zmin, sim_zmax
   real, save, dimension(64,64) :: sim_cubic_matrix
   real, save :: sim_bcentral
   integer, save :: psd_seed

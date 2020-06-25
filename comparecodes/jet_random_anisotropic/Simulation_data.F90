@@ -81,6 +81,46 @@ module Simulation_data
   character(len=MAX_STRING_LENGTH),save :: sim_nozVecInput
   integer,save :: sim_meshMe
 
+ 
+    !cluster
+    
+  !! *** Variables pertaining to this Simulation *** !!
+
+  real, save    :: sim_gamma, sim_zinit, sim_hubble
+  real, save    :: sim_xMin, sim_xMax, sim_yMin, sim_yMax, sim_zMin, sim_zMax, sim_eos_singleSpeciesA
+  real, save    :: sim_Bfield0, T_in, T_out, rho_in 
+  real, save    :: kb, mp, newton, Msun, Mpc, kpc, km
+  logical, save :: sim_killdivb
+  real, save    :: h, Mvir, c, mc, M0, rvir, rs, DeltaT, tbx, tby, tbz, dr, rc
+
+
+    ! header variables  
+
+  integer, save :: ntotal, ntot, ngas, ntot_tmp
+
+  real(kind=4), allocatable, save    :: Positions_Ascii(:,:), Velocities_Ascii(:,:)
+  real(kind=8), allocatable, save    :: Masses_Ascii(:)
+  real(kind=4), allocatable, save    :: Positions_Ascii_tmp(:,:), Velocities_Ascii_tmp(:,:)
+  real(kind=8), allocatable, save    :: Masses_Ascii_tmp(:)
+
+
+  real, allocatable, save    :: bx(:,:,:), by(:,:,:), bz(:,:,:), rhogas(:), tempgas(:)
+
+  logical :: sim_saturatedConduction
+
+
+  !random
+   real, save, allocatable, dimension(:,:,:) :: sim_Ax, sim_Ay, sim_Az
+  real, save, dimension(NXAVEC) :: sim_ax_coords
+  real, save, dimension(NYAVEC) :: sim_ay_coords
+  real, save, dimension(NZAVEC) :: sim_az_coords
+  real, save :: sim_xmin, sim_xmax, sim_ymin, sim_ymax, sim_zmin, sim_zmax
+  real, save, dimension(64,64) :: sim_cubic_matrix
+  real, save :: sim_bcentral
+  integer, save :: psd_seed
+
+
+
 contains
 
   function cross(a,b)
@@ -225,45 +265,7 @@ contains
 
   end function taperSph
 
-    
-    !cluster
-    
-  !! *** Variables pertaining to this Simulation *** !!
-
-  real, save    :: sim_gamma, sim_zinit, sim_hubble
-  real, save    :: sim_xMin, sim_xMax, sim_yMin, sim_yMax, sim_zMin, sim_zMax, sim_eos_singleSpeciesA
-  real, save    :: sim_Bfield0, T_in, T_out, rho_in 
-  real, save    :: kb, mp, newton, Msun, Mpc, kpc, km
-  logical, save :: sim_killdivb
-  real, save    :: h, Mvir, c, mc, M0, rvir, rs, DeltaT, tbx, tby, tbz, dr, rc
-
-
-    ! header variables  
-
-  integer, save :: ntotal, ntot, ngas, ntot_tmp
-
-  real(kind=4), allocatable, save    :: Positions_Ascii(:,:), Velocities_Ascii(:,:)
-  real(kind=8), allocatable, save    :: Masses_Ascii(:)
-  real(kind=4), allocatable, save    :: Positions_Ascii_tmp(:,:), Velocities_Ascii_tmp(:,:)
-  real(kind=8), allocatable, save    :: Masses_Ascii_tmp(:)
-
-
-  real, allocatable, save    :: bx(:,:,:), by(:,:,:), bz(:,:,:), rhogas(:), tempgas(:)
-
-  logical :: sim_saturatedConduction
-
-
-  !random
-   real, save, allocatable, dimension(:,:,:) :: sim_Ax, sim_Ay, sim_Az
-  real, save, dimension(NXAVEC) :: sim_ax_coords
-  real, save, dimension(NYAVEC) :: sim_ay_coords
-  real, save, dimension(NZAVEC) :: sim_az_coords
-  real, save :: sim_xmin, sim_xmax, sim_ymin, sim_ymax, sim_zmin, sim_zmax
-  real, save, dimension(64,64) :: sim_cubic_matrix
-  real, save :: sim_bcentral
-  integer, save :: psd_seed
-
-
+   
 
 end module Simulation_data
  

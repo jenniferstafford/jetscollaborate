@@ -88,7 +88,6 @@ module Simulation_data
 
   real, save    :: sim_zinit, sim_hubble
   real, save    :: sim_xMin, sim_xMax, sim_yMin, sim_yMax, sim_zMin, sim_zMax, sim_eos_singleSpeciesA
-  real, save    :: sim_Bfield0, T_in, T_out, rho_in 
   real, save    :: kb, mp, newton, Msun, Mpc, kpc, km
   logical, save :: sim_killdivb
   real, save    :: h, Mvir, c, mc, M0, rvir, rs, DeltaT, tbx, tby, tbz, dr, rc

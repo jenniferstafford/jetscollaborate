@@ -16,7 +16,7 @@ REQUIRES IO/IOParticles
 REQUIRES Grid/GridParticles
 
 
-
+#Cluster
 REQUIRES Driver
 REQUIRES Driver/DriverMain/Unsplit
 REQUIRES Grid
@@ -44,7 +44,7 @@ REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
 # PARTICLETYPE active INITMETHOD custom MAPMETHOD weighted
 
 
-
+#Random
 
 REQUIRES physics/Hydro
 REQUIRES Grid/GridMain/paramesh

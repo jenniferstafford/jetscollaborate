@@ -25,7 +25,7 @@ REQUIRES physics/Eos/EosMain/Gamma
 REQUESTS physics/Gravity
 REQUESTS physics/Gravity/GravityMain/PointMass
 REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
-REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
+#REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
 #REQUIRES physics/sourceTerms/Stir/StirMain
 REQUESTS IO
 

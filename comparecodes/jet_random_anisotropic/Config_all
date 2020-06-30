@@ -23,17 +23,30 @@ REQUIRES Grid
 REQUIRES physics/Eos
 REQUIRES physics/Eos/EosMain/Gamma
 REQUESTS physics/Gravity
-# REQUESTS physics/Gravity/GravityMain/Poisson/Multigrid
 REQUESTS physics/Gravity/GravityMain/PointMass
 REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
 REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
 REQUIRES physics/sourceTerms/Stir/StirMain
+REQUESTS IO
+
+REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
+REQUIRES physics/materialProperties
+REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
+
+# Need this to use Diffuse_computeDt
+REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
+
+# REQUIRES Particles/ParticlesMain/active
+# REQUIRES Particles/ParticlesMain/active/Leapfrog
+# REQUESTS Particles/ParticlesMapping/meshWeighting/CIC
+# REQUESTS Particles/ParticlesMapping/meshWeighting/MapToMesh
+# REQUESTS IO/IOParticles
+# PARTICLETYPE active INITMETHOD custom MAPMETHOD weighted
 
 
 
 
 REQUIRES physics/Hydro
-REQUIRES physics/Eos
 REQUIRES Grid/GridMain/paramesh
 
 
@@ -208,25 +221,7 @@ VARIABLE shks TYPE: GENERIC
 
 #Config file for Cluster
 
-# REQUIRES Grid/GridSolvers/Multigrid/PfftTopLevelSolve  # this should work only for periodic BCs
-# REQUIRES Grid/GridSolvers/Multigrid/
-REQUESTS IO
 
-REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
-# -----------------  For Resistive MHD setup -------------------#
-REQUIRES physics/materialProperties
-REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
-
-# Need this to use Diffuse_computeDt
-REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
-#------------------  End of Resistive MHD setup ----------------#
-
-# REQUIRES Particles/ParticlesMain/active
-# REQUIRES Particles/ParticlesMain/active/Leapfrog
-# REQUESTS Particles/ParticlesMapping/meshWeighting/CIC
-# REQUESTS Particles/ParticlesMapping/meshWeighting/MapToMesh
-# REQUESTS IO/IOParticles
-# PARTICLETYPE active INITMETHOD custom MAPMETHOD weighted
 
 D   Bfield0            initial (uniform) magnetic field
 D   SpitzerFraction    fraction of Spitzer conductivity along a field line

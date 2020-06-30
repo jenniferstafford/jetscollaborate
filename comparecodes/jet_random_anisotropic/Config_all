@@ -26,7 +26,7 @@ REQUESTS physics/Gravity
 REQUESTS physics/Gravity/GravityMain/PointMass
 REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
 REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
-REQUIRES physics/sourceTerms/Stir/StirMain
+#REQUIRES physics/sourceTerms/Stir/StirMain
 REQUESTS IO
 
 REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
@@ -35,13 +35,6 @@ REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
 
 # Need this to use Diffuse_computeDt
 REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
-
-# REQUIRES Particles/ParticlesMain/active
-# REQUIRES Particles/ParticlesMain/active/Leapfrog
-# REQUESTS Particles/ParticlesMapping/meshWeighting/CIC
-# REQUESTS Particles/ParticlesMapping/meshWeighting/MapToMesh
-# REQUESTS IO/IOParticles
-# PARTICLETYPE active INITMETHOD custom MAPMETHOD weighted
 
 
 #Random

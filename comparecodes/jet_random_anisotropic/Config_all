@@ -1,0 +1,266 @@
+#		Configuration file for the MHD Jet simulation
+
+REQUIRES Grid/GridBoundaryConditions/Flash2HSE
+REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
+#REQUIRES physics/sourceTerms/Heat/HeatMain
+#DEFAULT HeatMain
+REQUIRES physics/Eos/EosMain/Multigamma
+REQUIRES physics/Gravity/GravityMain/PointMass
+REQUIRES Multispecies
+
+
+
+D   rhoCore			Initial ambient density
+D	mu				Mean molecular weight
+D	windVel			Inflow velocity (parallel to x-axis)
+D   gammaICM		Gamma of the ambient material
+
+# Thresholds of variables
+PARAMETER sim_ptSmljet		REAL	1E-3	[0.0...1.0]
+
+
+# Background Properties
+PARAMETER sim_Tcore			REAL	3.48E7	[0.0...]
+PARAMETER sim_Tout			REAL	7.42E7	[0.0...]
+PARAMETER sim_rhoCore		REAL	9.6E-26	[0.0...]
+PARAMETER sim_mu			REAL	0.61	[0.5...2.0]
+PARAMETER sim_windVel		REAL	0.0
+PARAMETER sim_gammaICM		REAL	1.6666
+PARAMETER sim_bzAmbient		REAL	0.0
+PARAMETER sim_densityBeta	REAL	2.0
+PARAMETER sim_rCore			REAL	8.1E22		[0.0...]
+PARAMETER sim_rCoreT		REAL	1.85E23		[0.0...]
+PARAMETER sim_densityProfile STRING "uniform"	["uniform", "betacore"]
+PARAMETER sim_rhoFloor		REAL	1.6E-28		[0.0...]
+
+D	powerJet		Power of the jet
+D	velJet			Velocity of the jet
+D	machJet			Mach number of the jet (inside the nozzle)
+D	outflowRatio	Ratio of the lateral outflow velocity to the jet velocity
+D	gammaJet		Gamma of the jet
+D	betaJet			Beta parameter of the jet (beta = P_gas / P_mag
+D	helicityJet		B_toroidal / B_poloidal ( = B_phi / B_z )
+D	timeMHDon		Time when the magnetic fields are turned on
+
+# Jet Properties
+PARAMETER sim_powerJet		REAL    1.0E45
+PARAMETER sim_velJet		REAL	3.0E9
+PARAMETER sim_machJet		REAL	20.0		[0.0...]
+PARAMETER sim_initMachJet	REAL	20.0		[0.0...]
+PARAMETER sim_outflowRatio	REAL	0.01		[0.0...1.0]
+PARAMETER sim_gammaJet		REAL	1.6666
+PARAMETER sim_betaJet		REAL	100.0
+PARAMETER sim_helicityJet	REAL	1.0
+PARAMETER sim_timeMHDon		REAL	1.0E-11
+PARAMETER sim_tOn			REAL	0.0			[0.0...]
+PARAMETER sim_duration		REAL	3.0E14		[0.0...]
+
+# Nozzle Geometry
+PARAMETER nozzleRadius		REAL	7.5E20		[0.0...]
+PARAMETER nozzleHalfL		REAL	1.5E21		[0.0...]
+PARAMETER nozzlePosX		REAL	0.0
+PARAMETER nozzlePosY		REAL	0.0
+PARAMETER nozzlePosZ		REAL	0.0
+PARAMETER nozzleVecX		REAL	0.0
+PARAMETER nozzleVecY		REAL	0.0
+PARAMETER nozzleVecZ		REAL	1.0
+PARAMETER coneVecX		REAL	0.0
+PARAMETER coneVecY		REAL	0.0
+PARAMETER coneVecZ		REAL	1.0
+PARAMETER zTorInj			REAL	3.75E21
+PARAMETER rFeatherIn		REAL	3.75E20		[0.0...]
+PARAMETER rFeatherOut  		REAL	1.875E20	[0.0...]
+PARAMETER zFeather			REAL	7.5E20		[0.0...]
+PARAMETER initGeometry		STRING	"cylindrical"	["cylindrical", "spherical"]
+# Force lower half of the domain to have [n] fewer levels of refinement.
+PARAMETER lowerRefHalf		INTEGER	1
+
+# Nozzle motion
+#PARAMETER nozzleAngVelX		REAL	0.0
+#PARAMETER nozzleAngVelY		REAL	0.0
+#PARAMETER nozzleAngVelZ		REAL	0.0
+PARAMETER nozzleNutation	REAL	40.0			[0.0...]
+PARAMETER nozzlePrecession	REAL	80.0			[0.0...]
+PARAMETER nozzlePrecAngle	REAL	0.2			[0.0...]
+PARAMETER nozzleLinVelX		REAL	0.0
+PARAMETER nozzleLinVelY		REAL	0.0
+PARAMETER nozzleLinVelZ		REAL	0.0
+PARAMETER useTableJiggle	BOOLEAN	FALSE
+PARAMETER nozzleVecInput	STRING "nozzleVec_input.dat"
+
+# Refinement Criteria
+PARAMETER derefine_z1		REAL	8.0			[0.0...]
+PARAMETER derefine_z2		REAL	24.0		[0.0...]
+PARAMETER refine_jetR		REAL	0.1			[0.0...]
+PARAMETER derefine_jetR		REAL	0.05		[0.0...]
+PARAMETER lrefine_0			INTEGER	5			[1...]
+
+# Random number generator seed for the jiggle routine
+PARAMETER randomSeed		INTEGER 6511		[0...]
+
+# Reset the time to write checkpoint, plot, and particle files?
+PARAMETER resetOutputTime	BOOLEAN FALSE
+
+# Particles for synchrotron tracing
+PARTICLETYPE passive INITMETHOD custom MAPMETHOD weighted ADVMETHOD custom
+# Particles for metal tracing
+PARTICLETYPE metal INITMETHOD With_Density MAPMETHOD weighted ADVMETHOD RungeKutta
+
+REQUIRES Particles/ParticlesInitialization/WithDensity/CellMassBins
+REQUIRES Particles/ParticlesMain/passive/RungeKutta
+REQUIRES Particles/ParticlesMapping/Quadratic
+REQUIRES Particles/ParticlesMapping/meshWeighting/CIC
+REQUIRES IO/IOParticles
+REQUIRES Grid/GridParticles
+
+PARTICLEPROP TADD REAL
+PARTICLEPROP DENS REAL
+PARTICLEPROP PRES REAL
+PARTICLEPROP MAGX REAL
+PARTICLEPROP MAGY REAL
+PARTICLEPROP MAGZ REAL
+# This is the cutoff gamma for the particles, not adiabatic index
+PARTICLEPROP GAMC REAL
+PARTICLEPROP JET  REAL
+PARTICLEPROP SHOK REAL
+PARTICLEPROP SHKS REAL
+PARTICLEPROP IND1 REAL
+PARTICLEPROP IND2 REAL
+PARTICLEPROP IND3 REAL
+PARTICLEPROP IND4 REAL
+PARTICLEPROP TAU0 REAL
+PARTICLEPROP TAU1 REAL
+PARTICLEPROP TAU2 REAL
+PARTICLEPROP TAU3 REAL
+PARTICLEPROP TAU4 REAL
+PARTICLEPROP CMB0 REAL
+PARTICLEPROP CMB1 REAL
+PARTICLEPROP CMB2 REAL
+PARTICLEPROP CMB3 REAL
+PARTICLEPROP CMB4 REAL
+PARTICLEPROP ICT0 REAL
+PARTICLEPROP ICT1 REAL
+PARTICLEPROP ICT2 REAL
+PARTICLEPROP ICT3 REAL
+PARTICLEPROP ICT4 REAL
+PARTICLEPROP DEN0 REAL
+PARTICLEPROP DEN1 REAL
+PARTICLEPROP DEN2 REAL
+PARTICLEPROP DEN3 REAL
+PARTICLEPROP DEN4 REAL
+PARTICLEPROP TAD1 REAL
+PARTICLEPROP TAD2 REAL
+PARTICLEPROP TAD3 REAL
+PARTICLEPROP TAD4 REAL
+
+PARTICLEPROP WHCH REAL
+
+PARTICLEMAP TO DENS FROM VARIABLE dens
+PARTICLEMAP TO MAGX FROM VARIABLE magx
+PARTICLEMAP TO MAGY FROM VARIABLE magy
+PARTICLEMAP TO MAGZ FROM VARIABLE magz
+PARTICLEMAP TO SHKS FROM VARIABLE shks
+
+
+PARAMETER sim_ptInitNum		INTEGER	10			[0...]
+PARAMETER sim_ptRemoveDigit	INTEGER	2			[0...9]
+PARAMETER sim_ptAddPeriod	REAL	1E9			[0.0...]
+PARAMETER sim_ptAddArea		REAL	1E44		[0.0...]
+PARAMETER sim_ptMaxRadius	REAL	3.1E23		[0.0...]
+
+
+# Heat Source Term
+D	useHeat   runtime control for turning the heat on or off
+PARAMETER useHeat			BOOLEAN TRUE
+
+
+# Two Species for tracing jet and ISM components
+SPECIES ISM
+SPECIES JET
+
+# Gravity
+#PARAMETER useGravity		BOOLEAN TRUE
+
+# Shock
+VARIABLE shks TYPE: GENERIC
+
+
+#Config file for Cluster
+
+REQUIRES Driver
+REQUIRES Driver/DriverMain/Unsplit
+REQUIRES Grid
+REQUIRES physics/Eos
+REQUIRES physics/Eos/EosMain/Gamma
+REQUESTS physics/Gravity
+# REQUESTS physics/Gravity/GravityMain/Poisson/Multigrid
+REQUESTS physics/Gravity/GravityMain/PointMass
+REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
+REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
+REQUIRES physics/sourceTerms/Stir/StirMain
+
+# REQUIRES Grid/GridSolvers/Multigrid/PfftTopLevelSolve  # this should work only for periodic BCs
+# REQUIRES Grid/GridSolvers/Multigrid/
+REQUESTS IO
+
+REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
+# -----------------  For Resistive MHD setup -------------------#
+REQUIRES physics/materialProperties
+REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
+
+# Need this to use Diffuse_computeDt
+REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
+#------------------  End of Resistive MHD setup ----------------#
+
+# REQUIRES Particles/ParticlesMain/active
+# REQUIRES Particles/ParticlesMain/active/Leapfrog
+# REQUESTS Particles/ParticlesMapping/meshWeighting/CIC
+# REQUESTS Particles/ParticlesMapping/meshWeighting/MapToMesh
+# REQUESTS IO/IOParticles
+# PARTICLETYPE active INITMETHOD custom MAPMETHOD weighted
+
+D   Bfield0            initial (uniform) magnetic field
+D   SpitzerFraction    fraction of Spitzer conductivity along a field line
+D   saturated          saturated conduction
+
+PARAMETER Bfield0          REAL     1.0e-20
+PARAMETER SpitzerFraction  REAL  1.0e0
+PARAMETER isotropic        BOOLEAN  FALSE
+PARAMETER saturated        BOOLEAN FALSE
+PARAMETER T_in             REAL  2.0e7
+PARAMETER T_out            REAL  6.0e7
+PARAMETER rho_in           REAL  1.67e-26
+PARAMETER M0               REAL  3.8e14
+PARAMETER rs               REAL  390.0e0
+PARAMETER rc               REAL   20.0e0
+# PARAMETER Mvir             REAL  5.0e14
+# PARAMETER cool_fctn_file   STRING   "m-05.cie"
+PARAMETER useCool          BOOLEAN  TRUE    
+
+VARIABLE dens TYPE: PER_VOLUME
+VARIABLE cool
+
+
+
+
+
+#		Configuration file for the Random Field Generator
+
+REQUIRES physics/Hydro
+REQUIRES physics/Eos
+REQUIRES Grid/GridMain/paramesh
+
+PARAMETER sim_xmin	   REAL    0.0
+PARAMETER sim_xmax         REAL	   1.0
+PARAMETER sim_ymin         REAL	   0.0
+PARAMETER sim_ymax         REAL    1.0
+PARAMETER sim_zmin         REAL    0.0
+PARAMETER sim_zmax	   REAL	   1.0
+
+PARAMETER high_cut_index   REAL	   2.
+PARAMETER low_cut_index	   REAL	   2.
+PARAMETER psd_index	   REAL	   2.5
+PARAMETER high_cut_k	   REAL	   16.
+PARAMETER low_cut_k	   REAL	   0.5
+PARAMETER psd_seed	   INTEGER 12345
+PARAMETER sim_bcentral	   REAL	   1.0

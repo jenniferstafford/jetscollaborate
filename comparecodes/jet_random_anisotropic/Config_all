@@ -8,6 +8,33 @@ REQUIRES physics/Eos/EosMain/Multigamma
 REQUIRES physics/Gravity/GravityMain/PointMass
 REQUIRES Multispecies
 
+REQUIRES Particles/ParticlesInitialization/WithDensity/CellMassBins
+REQUIRES Particles/ParticlesMain/passive/RungeKutta
+REQUIRES Particles/ParticlesMapping/Quadratic
+REQUIRES Particles/ParticlesMapping/meshWeighting/CIC
+REQUIRES IO/IOParticles
+REQUIRES Grid/GridParticles
+
+
+
+REQUIRES Driver
+REQUIRES Driver/DriverMain/Unsplit
+REQUIRES Grid
+REQUIRES physics/Eos
+REQUIRES physics/Eos/EosMain/Gamma
+REQUESTS physics/Gravity
+# REQUESTS physics/Gravity/GravityMain/Poisson/Multigrid
+REQUESTS physics/Gravity/GravityMain/PointMass
+REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
+REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
+REQUIRES physics/sourceTerms/Stir/StirMain
+
+
+
+
+REQUIRES physics/Hydro
+REQUIRES physics/Eos
+REQUIRES Grid/GridMain/paramesh
 
 
 D   rhoCore			Initial ambient density
@@ -106,12 +133,6 @@ PARTICLETYPE passive INITMETHOD custom MAPMETHOD weighted ADVMETHOD custom
 # Particles for metal tracing
 PARTICLETYPE metal INITMETHOD With_Density MAPMETHOD weighted ADVMETHOD RungeKutta
 
-REQUIRES Particles/ParticlesInitialization/WithDensity/CellMassBins
-REQUIRES Particles/ParticlesMain/passive/RungeKutta
-REQUIRES Particles/ParticlesMapping/Quadratic
-REQUIRES Particles/ParticlesMapping/meshWeighting/CIC
-REQUIRES IO/IOParticles
-REQUIRES Grid/GridParticles
 
 PARTICLEPROP TADD REAL
 PARTICLEPROP DENS REAL
@@ -186,18 +207,6 @@ VARIABLE shks TYPE: GENERIC
 
 
 #Config file for Cluster
-
-REQUIRES Driver
-REQUIRES Driver/DriverMain/Unsplit
-REQUIRES Grid
-REQUIRES physics/Eos
-REQUIRES physics/Eos/EosMain/Gamma
-REQUESTS physics/Gravity
-# REQUESTS physics/Gravity/GravityMain/Poisson/Multigrid
-REQUESTS physics/Gravity/GravityMain/PointMass
-REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
-REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
-REQUIRES physics/sourceTerms/Stir/StirMain
 
 # REQUIRES Grid/GridSolvers/Multigrid/PfftTopLevelSolve  # this should work only for periodic BCs
 # REQUIRES Grid/GridSolvers/Multigrid/

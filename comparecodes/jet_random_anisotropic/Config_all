@@ -24,10 +24,9 @@ REQUIRES physics/Eos
 REQUIRES physics/Eos/EosMain/Gamma
 REQUESTS physics/Gravity
 REQUESTS physics/Gravity/GravityMain/PointMass
-REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
 #REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
 #REQUIRES physics/sourceTerms/Stir/StirMain
-REQUESTS IO
+#REQUESTS IO
 
 REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
 REQUIRES physics/materialProperties
@@ -39,8 +38,8 @@ REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
 
 #Random
 
-REQUIRES physics/Hydro
-REQUIRES Grid/GridMain/paramesh
+#REQUIRES physics/Hydro
+#REQUIRES Grid/GridMain/paramesh
 
 
 D   rhoCore			Initial ambient density

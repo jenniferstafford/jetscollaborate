@@ -1,12 +1,34 @@
 #		Configuration file for the MHD Jet simulation
 
 REQUIRES Grid/GridBoundaryConditions/Flash2HSE
-REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
-#REQUIRES physics/sourceTerms/Heat/HeatMain
+REQUIRES Grid
+#REQUIRES Grid/GridMain/paramesh
+
+REQUIRES Multispecies
+REQUIRES Driver
+REQUIRES Driver/DriverMain/Unsplit
+
+#REQUESTS IO
+
 #DEFAULT HeatMain
+
 REQUIRES physics/Eos/EosMain/Multigamma
 REQUIRES physics/Gravity/GravityMain/PointMass
-REQUIRES Multispecies
+REQUIRES physics/Eos
+REQUIRES physics/Eos/EosMain/Gamma
+REQUESTS physics/Gravity
+REQUESTS physics/Gravity/GravityMain/PointMass
+REQUIRES physics/Hydro/HydroMain/unsplit/MHD_StaggeredMesh
+REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
+REQUIRES physics/materialProperties
+REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
+# Need this to use Diffuse_computeDt
+REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
+
+#REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
+#REQUIRES physics/sourceTerms/Stir/StirMain
+#REQUIRES physics/sourceTerms/Heat/HeatMain
+#REQUIRES physics/Hydro
 
 REQUIRES Particles/ParticlesInitialization/WithDensity/CellMassBins
 REQUIRES Particles/ParticlesMain/passive/RungeKutta
@@ -15,31 +37,6 @@ REQUIRES Particles/ParticlesMapping/meshWeighting/CIC
 REQUIRES IO/IOParticles
 REQUIRES Grid/GridParticles
 
-
-#Cluster
-REQUIRES Driver
-REQUIRES Driver/DriverMain/Unsplit
-REQUIRES Grid
-REQUIRES physics/Eos
-REQUIRES physics/Eos/EosMain/Gamma
-REQUESTS physics/Gravity
-REQUESTS physics/Gravity/GravityMain/PointMass
-#REQUIRES physics/sourceTerms/Cool/CoolMain/SutherlandDopita
-#REQUIRES physics/sourceTerms/Stir/StirMain
-#REQUESTS IO
-
-REQUIRES physics/materialProperties/Conductivity/ConductivityMain/Spitzer
-REQUIRES physics/materialProperties
-REQUIRES physics/materialProperties/MagneticResistivity/MagneticResistivityMain
-
-# Need this to use Diffuse_computeDt
-REQUIRES physics/sourceTerms/Diffuse/DiffuseMain
-
-
-#Random
-
-#REQUIRES physics/Hydro
-#REQUIRES Grid/GridMain/paramesh
 
 
 D   rhoCore			Initial ambient density
@@ -238,13 +235,7 @@ VARIABLE cool
 
 
 
-
-
 #		Configuration file for the Random Field Generator
-
-REQUIRES physics/Hydro
-REQUIRES physics/Eos
-REQUIRES Grid/GridMain/paramesh
 
 PARAMETER sim_xmin	   REAL    0.0
 PARAMETER sim_xmax         REAL	   1.0

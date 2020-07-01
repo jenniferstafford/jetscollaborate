@@ -3,12 +3,14 @@
 REQUIRES Grid/GridBoundaryConditions/Flash2HSE
 REQUIRES Grid
 #REQUIRES Grid/GridMain/paramesh
+REQUIRES Grid/GridParticles
 
 REQUIRES Multispecies
 REQUIRES Driver
 REQUIRES Driver/DriverMain/Unsplit
 
 #REQUESTS IO
+REQUIRES IO/IOParticles
 
 #DEFAULT HeatMain
 
@@ -35,7 +37,7 @@ REQUIRES Particles/ParticlesMain/passive/RungeKutta
 REQUIRES Particles/ParticlesMapping/Quadratic
 REQUIRES Particles/ParticlesMapping/meshWeighting/CIC
 REQUIRES IO/IOParticles
-REQUIRES Grid/GridParticles
+
 
 
 

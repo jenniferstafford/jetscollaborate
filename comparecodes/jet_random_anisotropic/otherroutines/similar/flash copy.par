@@ -1,0 +1,115 @@
+#	Runtime parameters for the Emery wind tunnel + step problem.
+
+#	Parameters for initial model
+
+#		Ambient pressure and density and inflow velocity.
+
+sim_bcentral    = 1.0
+high_cut_index	= 2.
+low_cut_index	= 2.
+psd_index	= 2.5
+high_cut_k	= 16.
+low_cut_k	= 0.5
+psd_seed	= 456789
+sim_xmin	= 1.0
+sim_xmax	= 3.0
+sim_ymin	= 0.0
+sim_ymax	= 2.0
+sim_zmin	= -1.0
+sim_zmax	= 1.0
+
+#	Computational volume parameters
+
+#		Grid geometry
+
+geometry = "cartesian"
+
+#		Size of computational volume
+
+Nblockx		= 1
+Nblocky		= 1
+Nblockz		= 1
+
+xmin		= 0 #-4 #-5 #-3. #-5 #-8
+xmax		= 2  #10 #11 #9 #11. #12
+ymin		= 0 #-3 #-4 #-2. #-4
+ymax		= 2  #3 #4 #2. #4
+zmin		= 0 #-3 #-4 #-2.
+zmax		= 2  #4 #2.
+
+lrefine_min	= 1
+lrefine_max	= 3
+
+#		Boundary conditions
+
+#xl_boundary_type = "periodic"
+#xr_boundary_type = "periodic"
+#yl_boundary_type = "periodic" #"outflow"
+#yr_boundary_type = "periodic" #outflow"
+#zl_boundary_type = "periodic" #"outflow"
+#zr_boundary_type = "periodic" #"outflow"
+xl_boundary_type = "outflow"
+xr_boundary_type = "outflow"
+yl_boundary_type = "outflow"
+yr_boundary_type = "outflow"
+zl_boundary_type = "outflow"
+zr_boundary_type = "outflow"
+
+# For Uniform Grid
+#iGridSize = 8 #defined as nxb*iprocs
+#jGridSize = 8
+#kGridSize = 1
+#iProcs=6 #7 #8 # 6 #8 # number of procs in i direction
+#jProcs=8 #3 #4 #2 #4 
+#kProcs=4 #2  #3 #4 #2 #4
+#meshCopyCount=1
+
+#	Simulation (grid, time, I/O) parameters
+
+cfl		= 0.25
+
+refine_var_1                   = "dens"
+basenm                         = "bubble_mhd_"
+restart                        = .false.
+checkpointFileNumber           =  00
+rolling_checkpoint             =  02
+plotFileNumber                 =  00
+checkpointFileIntervalTime     =  1e99
+checkpointFileIntervalStep     =  40
+wall_clock_checkpoint          =  10000000
+plotfileIntervalStep           =  10000000 
+plotfileIntervalTime           =  0.1
+
+nend                           = 10
+tmax                           = 20.0
+eintSwitch                     = 1.e-3
+dtinit		               = 1.e-4
+
+plot_var_1 = "dens"
+plot_var_2 = "pres"
+plot_var_3 = "velx"
+plot_var_4 = "vely"
+plot_var_5 = "velz"
+plot_var_6 = "magx"
+plot_var_7 = "magy"
+plot_var_8 = "magz"
+
+
+## -------------------------------------------------------------##
+##  SWITCHES SPECIFIC TO THE UNSPLIT HYDRO SOLVER               ##
+#	I. INTERPOLATION SCHEME:
+order		= 3      # Interpolation order (First/Second order)
+slopeLimiter    = "mc"   # Slope limiters (minmod, mc, vanLeer, hybrid, limited)
+LimitedSlopeBeta= 1.     # Slope parameter for the "limited" slope by Toro
+charLimiting	= .true. # Characteristic limiting vs. Primitive limiting
+
+
+#	II. RIEMANN SOLVERS:
+RiemannSolver	= "Roe"       # LLF, HLL, HLLC, hybrid, Marquina, Roe
+shockInstabilityFix = .false. # Carbuncle instability fix for the Roe solver
+
+prolMethod     =  "INJECTION_PROL"
+
+#	III. STRONG SHOCK HANDELING SCHEME:
+shockDetect	= .true.     # Shock Detect for numerical stability
+## -------------------------------------------------------------##
